@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chaya Fortune</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #e2b87d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+
+    .fortune-box {
+      text-align: center;
+      padding: 2rem;
+      background: #ffffffaa;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 2s ease-out;
+    }
+
+    .fortune-text {
+      font-size: 1.8rem;
+      color: #4e2f03;
+      margin-bottom: 1rem;
+      animation: steamRise 3s ease-out;
+    }
+
+    .emoji {
+      font-size: 2.5rem;
+      animation: steamLoop 5s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes steamRise {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes steamLoop {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="fortune-box">
+    <div class="emoji">🔮</div>
+    <div class="fortune-text" id="fortune"></div>
+    <div class="emoji">🫖</div>
+  </div>
+
+  <script>
+    const fortunes = [
+      "You’ll spill more tea than your kettle today.",
+      "Your chai knows you better than your BFF.",
+      "Expect a sip of surprise this afternoon.",
+      "Drama is brewing… stay steeped.",
+      "Your crush is craving chai too 😉",
+      "Today is a two-chai minimum kind of day."
+    ];
+
+    document.getElementById("fortune").innerText =
+      fortunes[Math.floor(Math.random() * fortunes.length)];
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 4000); // wait 4 seconds
+  </script>
+</body>
+</html>

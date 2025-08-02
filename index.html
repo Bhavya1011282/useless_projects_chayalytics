@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chayalytics</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("Untitled design (1) 1.png" );
+      background-size:1500px 900px;         
+      background-repeat: no-repeat;   
+      background-position: center;
+      background-position: left 20px;    
+      color: #4e2f03;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #4e2f03;
+    }
+    input, select {
+      padding: 0.5rem;
+      margin: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      background-color: #4e2f03;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .result {
+      margin-top: 2rem;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    }
+  </style>
+</head>
+<body>
+  <h1><b>☕CHAYALYTICS</b></h1>
+  <p><b>Because your chaya can tell your <i>story</i></b></p><label for="color"><b>Chaya Color:</b></label> <select id="color"> <option value="pale">Pale Brown</option> <option value="golden">Dark Brown</option> <option value="milky">Milky Light Brown</option> <option value="deep">Deep Brown</option> <option value="burnt">Burnt Reddish</option> <option value="grey">Greyish Tone</option> </select>
+
+  <br>
+  <label for="time"><b>When did you have your last cup of chaya?</b></label>
+  <input type="time" id="time">  <br>
+  <button onclick="analyzeChaya()">Analyze</button>  <div class="result" id="output" style="display:none">
+    <p id="emotion"></p>
+    <p id="nextChaya"></p>
+    <p id="vibe"></p>
+    <p id="tip"></p>
+    <p id="rec"></p>
+  </div>  <script>
+    function analyzeChaya() {
+      const color = document.getElementById("color").value;
+      const time = document.getElementById("time").value;
+
+      const emotions = {
+        pale: "Indifference / Peaceful",
+        golden: "Balanced & Optimistic",
+        milky: "Lazy Happiness",
+        deep: "Mild Rage / Overthinking",
+        burnt: "Existential Spiral",
+        grey: "Chaya gone wrong (dump it ASAP!)"
+      };
+
+      const tips = {
+        pale: "Go with the flow. Now is not the time to overthink.",
+        dark: "Burn out but wise, you have seen things.",
+        milky: "You deserve a nap after this cup.",
+        deep: "Avoid serious talks till your next tea.",
+        burnt: "Don’t make major life decisions right now. Might have consequences",
+        grey: "Call a friend. Maybe don’t trust your judgment today."
+      };
+
+      const quotes = {
+        pale: "Peace is brewed, not bought.",
+        dark: "Tough hour, dark chai.",
+        milky: "This tea says: no meetings, just feelings.",
+        deep: "You’re steeped in thought, literally.",
+        burnt: "Existential dread never tasted so warm.",
+        grey: "Sometimes tea is just a warning sign."
+      };
+
+      const recos = [
+        "Pair it with pazham pori & light gossip.",
+        "Grab some parippuvada and chill.",
+        "Get a nice plate of ela ada to feel fancy.",
+        "You need a snack. Try spicy mixtures.",
+        "Churuttu and tea = therapy.",
+        "Share a plate of bonda, even if it’s with your thoughts."
+      ];
+
+      const lastTime = new Date();
+      const [hrs, mins] = time.split(":").map(Number);
+      lastTime.setHours(hrs);
+      lastTime.setMinutes(mins);
+
+      const offset = Math.floor(Math.random() * 60) + 15; // 15–75 mins
+      const nextTime = new Date(lastTime.getTime() + offset * 60000);
+      const hour = nextTime.getHours() % 12 || 12;
+      const minute = nextTime.getMinutes().toString().padStart(2, '0');
+      const ampm = nextTime.getHours() >= 12 ? 'PM' : 'AM';
+
+      document.getElementById("emotion").textContent = `🧠 You’re sipping: ${emotions[color]}`;
+      document.getElementById("nextChaya").textContent = `⏳ Your next chaya hits in ${offset} minutes → around ${hour}:${minute} ${ampm}`;
+      document.getElementById("vibe").textContent = `🎵 Vibe Check: “${quotes[color]}”`;
+      document.getElementById("tip").textContent = `💡 Tip: ${tips[color]}`;
+      document.getElementById("rec").textContent = `🍘 Mallu Munch: ${recos[Math.floor(Math.random()*recos.length)]}`;
+      document.getElementById("output").style.display = 'block';
+    }
+  </script>
+ <div style="margin-top: 5rem; text-align: center;">
+  <a href="ironic.html" style="
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background-color: #a52a2a;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  " onmouseover="this.style.backgroundColor='#922d2d'" onmouseout="this.style.backgroundColor='#a52a2a'">
+    Craving drama with your chaya? Tap here for some IRONIC TEAS! 🫖
+  </a>
+  <div style="margin-top: 4rem; text-align: center;">
+  <a href="tea or not game.html" style="text-decoration: none;">
+    <button style="
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #a52a2a;
+      color: #fdfafa;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    " onmouseover="this.innerText='It’s a brew-tiful decision! ☕'" onmouseout="this.innerText='Play: Tea or Not to Tea'">
+      Play: Tea or Not to Tea
+    </button>
+  </a>
+</div>
+</div>
+  <div style="margin-top: 2rem; font-size: 0.9rem; color: #4e2f03;">
+    <p>© 2025 Chayalytics. All rights reserved.</p>
+    <p>Made with ☕ and a pinch of drama.</p>
+    <p>For entertainment purposes only. Please drink responsibly.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tea or Not To Tea</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #fff4e6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      color: #5f4b32;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      animation: pop-in 0.8s ease;
+    }
+
+    .question-box {
+      background-color: #fff8dc;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 500px;
+      animation: fade-in 1s ease-in-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #ffb703;
+      color: #000;
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #f77f00;
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(247, 127, 0, 0.6);
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      animation: fade-in 0.6s ease-in-out;
+    }
+
+    .options {
+      margin-top: 1rem;
+    }
+
+    .back-btn {
+      margin-top: 3rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #d9a066;
+      color: white;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      z-index: 2;
+    }
+
+    .back-btn:hover {
+      background-color: #a86523;
+      transform: scale(1.05);
+    }
+
+    .floating-cup, .floating-cup2, .floating-cup3, .floating-cup4 {
+      position: absolute;
+      width: 80px;
+      animation: float 4s ease-in-out infinite;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .floating-cup {
+      top: 10%;
+      left: 5%;
+    }
+
+    .floating-cup2 {
+      top: 20%;
+      right: 8%;
+    }
+
+    .floating-cup3 {
+      bottom: 10%;
+      left: 15%;
+    }
+
+    .floating-cup4 {
+      bottom: 15%;
+      right: 20%;
+    }
+
+    .teabag {
+      position: absolute;
+      top: 70%;
+      right: 10%;
+      width: 80px;
+      animation: swing 3s ease-in-out infinite;
+      opacity: 0.15;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pop-in {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes swing {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+      100% { transform: rotate(0deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" class="floating-cup" alt="tea cup" />
+  <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" class="floating-cup2" alt="tea cup" />
+  <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" class="floating-cup3" alt="tea cup" />
+  <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" class="floating-cup4" alt="tea cup" />
+  <img src="https://cdn-icons-png.flaticon.com/512/848/848043.png" class="teabag" alt="tea bag" />
+
+  <h1>Tea or Not To Tea?</h1>
+  <div class="question-box">
+    <p>What’s the vibe right now?</p>
+    <div class="options">
+      <button class="btn" onclick="decideTea('chaotic')">Chaotic mess 🍵</button>
+      <button class="btn" onclick="decideTea('melodramatic')">Melodramatic villain arc 🫖</button>
+      <button class="btn" onclick="decideTea('zen')">Zen and chill 🌱</button>
+      <button class="btn" onclick="decideTea('fakefine')">Fake fine but spiraling 😶‍🌫️</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <a href="index.html">
+    <button class="back-btn">Back to Chayalytics HQ ☕</button>
+  </a>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_46b7e8b3b0.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function decideTea(mood) {
+      const result = document.getElementById('result');
+
+      const responses = {
+        chaotic: [
+          "Emergency brew required. Add sugar, add drama.",
+          "Only tea can fix this chaos. Go now.",
+          "You’re one spill away from a breakthrough. Sip wisely.",
+          "Too much chaos? Time to chai again.",
+          "Steep your soul in some hot gossip."
+        ],
+        melodramatic: [
+          "Brew your tea like it's a potion of revenge.",
+          "You need a villain’s brew. Strong and shady.",
+          "A dramatic pour for a dramatic soul.",
+          "Cue the thunderstorm. It’s tea time.",
+          "Sip it like you're plotting your third arc."
+        ],
+        zen: [
+          "Maybe skip tea. Or have it and meditate with the leaves.",
+          "No need. But it won’t hurt to sip with grace.",
+          "Keep calm and keep sipping.",
+          "Sereni-tea unlocked.",
+          "Breathe in... sip out."
+        ],
+        fakefine: [
+          "You need tea. And a support group.",
+          "Lying to yourself? Brew now.",
+          "‘Fine’ is code for chaaya time. Don’t fight it.",
+          "If you're fine, I'm herbal tea.",
+          "One hot cup away from emotional stability."
+        ]
+      };
+
+      const randomReply = responses[mood][Math.floor(Math.random() * responses[mood].length)];
+      result.textContent = randomReply;
+
+      // Animate result
+      result.style.opacity = 0;
+      setTimeout(() => {
+        result.style.opacity = 1;
+      }, 100);
+    }
+  </script>
+</body>
+
+</html>
